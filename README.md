@@ -1,2 +1,2 @@
 # js-exercises
-Repo til js øvelser 
+Javascript øvelser 2 semester. 

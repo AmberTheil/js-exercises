@@ -1,0 +1,119 @@
+<!DOCKTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Hent JSON</title>
+
+</head>
+
+<body>
+
+    <style>
+        * {
+            margin: 1vw;
+            padding: 0;
+            font-family: 'Muli', sans-serif;
+            font-weight: 300;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e5e5e5;
+        }
+
+
+        img {
+            100%;
+            width: 20%;
+            border: 2px dotted yellow;
+        }
+
+        h2 {
+            color: pink;
+            font-family: 'Righteous', cursive;
+            font-size: 2em;
+        }
+
+    </style>
+
+    <section class="data-container"></section>
+
+    <template class="data-template">
+        <article>
+            <h2></h2>
+
+            <ul>
+            <li> <p class="data-github"></p> </li>
+           <li> <p class="data-website"></p></li>
+           <li> <p class="data-mail"></p></li>
+           <li> <p class="data-adresse"></p></li>
+           <li> <p class="data-alder"></p></li>
+           <li> <p class="data-civilstatus"></p></li>
+           <li> <p class="data-tlf"></p></li>
+           <li> <p class="data-facebook"></p></li>
+           <li> <p class="data-hobby"></p></li>
+           <li> <p class="data-sex"></p></li>
+                </ul>
+            <img src="">
+
+        </article>
+     </template>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", hentJson)
+
+        let personer;
+
+        async function hentJson() {
+
+            let myJson = await fetch("personliste.json");
+            personer = await myJson.json();
+
+            console.log(personer[0].navn);
+
+            visPersoner();
+        }
+
+
+        function visPersoner() {
+
+            let modtager = document.querySelector(".data-container");
+            let temp = document.querySelector(".data-template");
+
+            //løb personliste igennem og lav en klon//
+
+            personer.forEach(person => {
+
+                //lav en klon af template//
+
+                let klon = temp.cloneNode(true).content;
+                //indsæt data i html
+                klon.querySelector("h2").textContent = person.navn;
+                klon.querySelector(".data-github").textContent = person.github;
+                klon.querySelector(".data-website").textContent = person.website;
+                klon.querySelector(".data-mail").textContent = person.mail;
+                klon.querySelector(".data-adresse").textContent = person.adresse;
+                klon.querySelector(".data-alder").textContent = person.alder;
+                klon.querySelector(".data-civilstatus").textContent = person.civilstatus;
+                klon.querySelector(".data-tlf").textContent = person.tlf;
+                klon.querySelector(".data-facebook").textContent = person.facebook;
+                klon.querySelector(".data-hobby").textContent = person.hobby;
+                klon.querySelector(".data-sex").textContent = person.sex;
+                klon.querySelector("img").src = person.billede;
+                //placer klon i html
+
+
+                modtager.appendChild(klon);
+
+
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>
